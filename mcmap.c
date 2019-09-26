@@ -75,6 +75,11 @@ struct mcmap_region *mcmap_region_read(int ix, int iz, const char *path)
 			if (r->header->locations[z][x].sector_count > 0)
 				{
 				//extract big-endian 32-bit integer from r->header->dates[z][x]
+				int32_t orig = r->dates[z][x];
+				int32_t swap = cswapr_32(&(r->header->dates[z][x][0]));
+				//decltype(orig) origType;
+				//decltype(swap) swapType;
+
 				r->dates[z][x] = cswapr_32(&(r->header->dates[z][x][0]));
 				//extract big-endian 24-bit integer from r->header->location[z][x].offset
 				r->locations[z][x] = cswapr_24(&(r->header->locations[z][x].offset[0]));
